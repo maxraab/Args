@@ -8,6 +8,10 @@ namespace Utilities
         {
         }
 
+        public ArgsException(ErrorCode errorCode)
+        {
+        }
+
         public ArgsException(ErrorCode errorCode, char errorArgumentId, string errorParameters)
         {
         }

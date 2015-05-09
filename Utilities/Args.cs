@@ -39,6 +39,10 @@ namespace Utilities
             {
                 _marshalers.Add(elementId, new BooleanArgumentMarshaler());
             }
+            else if (elementTail.Equals("*"))
+            {
+                _marshalers.Add(elementId, new StringArgumentMarshaler());
+            }
             else
             {
                 throw new ArgsException(ErrorCode.Invalid_Argument_Format, elementId, elementTail);
@@ -115,6 +119,11 @@ namespace Utilities
         public bool GetBoolean(char arg)
         {
             return BooleanArgumentMarshaler.GetValue(_marshalers[arg]);
+        }
+
+        public string GetString(char arg)
+        {
+            return StringArgumentMarshaler.GetValue(_marshalers[arg]);
         }
     }
 }
