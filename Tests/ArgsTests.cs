@@ -200,7 +200,7 @@ namespace Tests
         public void Usage()
         {
             var args = new Args("x", new string[] { "-x" });
-            Assert.Equal("-[x]", args.Usage());
+            Assert.Equal("Usage: -[x]", args.Usage());
         }
     }
 }

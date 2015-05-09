@@ -155,12 +155,14 @@ namespace Utilities
 
         public string Usage()
         {
+            var usage = string.Empty;
+
             if (_schema.Length > 0)
             {
-                return string.Format("-[{0}]", _schema);
+                usage = string.Format("Usage: -[{0}]", _schema);
             }
 
-            return string.Empty;
+            return usage;
         }
 
         public bool Has(char arg)

@@ -46,29 +46,40 @@ namespace Utilities
 
         public string ErrorMessage()
         {
+            var errorMessage = string.Empty;
+
             switch (ErrorCode)
             {
                 case ErrorCode.Ok:
-                    return "TILT: Should not get here.";
+                    errorMessage = "TILT: Should not get here.";
+                    break;
                 case ErrorCode.Unexpected_Argument:
-                    return string.Format("Argument -{0} unexpected.", ErrorArgumentId);
+                    errorMessage = string.Format("Argument -{0} unexpected.", ErrorArgumentId);
+                    break;
                 case ErrorCode.Missing_String:
-                    return string.Format("Could not find string parameter for -{0}.", ErrorArgumentId);
+                    errorMessage = string.Format("Could not find string parameter for -{0}.", ErrorArgumentId);
+                    break;
                 case ErrorCode.Invalid_Integer:
-                    return string.Format("Argument -{0} expects an integer but was '{1}'.", ErrorArgumentId, ErrorParameter);
+                    errorMessage = string.Format("Argument -{0} expects an integer but was '{1}'.", ErrorArgumentId, ErrorParameter);
+                    break;
                 case ErrorCode.Missing_Integer:
-                    return string.Format("Could not find integer parameter for -{0}.", ErrorArgumentId);
+                    errorMessage = string.Format("Could not find integer parameter for -{0}.", ErrorArgumentId);
+                    break;
                 case ErrorCode.Invalid_Double:
-                    return string.Format("Argument -{0} expects a double but was '{1}'.", ErrorArgumentId, ErrorParameter);
+                    errorMessage = string.Format("Argument -{0} expects a double but was '{1}'.", ErrorArgumentId, ErrorParameter);
+                    break;
                 case ErrorCode.Missing_Double:
-                    return string.Format("Could not find double parameter for -{0}.", ErrorArgumentId);
+                    errorMessage = string.Format("Could not find double parameter for -{0}.", ErrorArgumentId);
+                    break;
                 case ErrorCode.Invalid_Argument_Name:
-                    return string.Format("'{0}' is not a valid argument name.", ErrorArgumentId);
+                    errorMessage = string.Format("'{0}' is not a valid argument name.", ErrorArgumentId);
+                    break;
                 case ErrorCode.Invalid_Argument_Format:
-                    return string.Format("'{0}' is not a valid argument format.", ErrorParameter);
+                    errorMessage = string.Format("'{0}' is not a valid argument format.", ErrorParameter);
+                    break;
             }
 
-            return string.Empty;
+            return errorMessage;
         }
     }
 }
