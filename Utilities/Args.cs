@@ -114,6 +114,20 @@ namespace Utilities
                 throw;
             }
         }
+
+        public bool Has(char arg)
+        {
+            return _argsFound.Contains(arg);
+        }
+
+        public int NextArgument()
+        {
+            return 0;
+        }
+
+        public bool GetBoolean(char arg)
+        {
+            return BooleanArgumentMarshaler.GetValue(_marshalers[arg]);
+        }
     }
 }
-;
