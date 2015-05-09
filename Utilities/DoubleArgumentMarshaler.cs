@@ -3,22 +3,22 @@ using System.Collections.Generic;
 
 namespace Utilities
 {
-    public class IntegerArgumentMarshaler : IArgumentMarshaler
+    public class DoubleArgumentMarshaler : IArgumentMarshaler
     {
-        public int IntValue
+        public double DoubleValue
         {
             get;
             set;
         }
 
-        public static int GetValue(IArgumentMarshaler am)
+        public static double GetValue(IArgumentMarshaler am)
         {
-            if (am != null && am is IntegerArgumentMarshaler)
+            if (am != null && am is DoubleArgumentMarshaler)
             {
-                return ((IntegerArgumentMarshaler)am).IntValue;
+                return ((DoubleArgumentMarshaler)am).DoubleValue;
             }
 
-            return 0;
+            return 0.0;
         }
 
         #region IArgumentMarshaler Member
@@ -28,7 +28,7 @@ namespace Utilities
             try
             {
                 currentArgument.MoveNext();
-                IntValue = int.Parse(currentArgument.Current);
+                DoubleValue = double.Parse(currentArgument.Current);
             }
             catch (ArgumentNullException)
             {
@@ -36,7 +36,7 @@ namespace Utilities
             }
             catch (FormatException)
             {
-                throw new ArgsException(ErrorCode.Invalid_Integer, currentArgument.Current);
+                throw new ArgsException(ErrorCode.Invalid_Double, currentArgument.Current);
             }
         }
 

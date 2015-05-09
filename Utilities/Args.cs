@@ -47,6 +47,10 @@ namespace Utilities
             {
                 _marshalers.Add(elementId, new IntegerArgumentMarshaler());
             }
+            else if (elementTail.Equals("##"))
+            {
+                _marshalers.Add(elementId, new DoubleArgumentMarshaler());
+            }
             else
             {
                 throw new ArgsException(ErrorCode.Invalid_Argument_Format, elementId, elementTail);
@@ -116,6 +120,11 @@ namespace Utilities
         public int GetInteger(char arg)
         {
             return IntegerArgumentMarshaler.GetValue(_marshalers[arg]);
+        }
+
+        public double GetDouble(char arg)
+        {
+            return DoubleArgumentMarshaler.GetValue(_marshalers[arg]);
         }
     }
 }
