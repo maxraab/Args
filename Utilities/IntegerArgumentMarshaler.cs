@@ -32,7 +32,7 @@ namespace Utilities
             }
             catch (ArgumentNullException)
             {
-                throw new ArgsException(ErrorCode.Missing_Double, currentArgument.Current);
+                throw new ArgsException(ErrorCode.Missing_Integer, currentArgument.Current);
             }
             catch (FormatException)
             {
