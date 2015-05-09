@@ -4,16 +4,18 @@ namespace Utilities
 {
     public class Args
     {
+        private string _schema;
         private Dictionary<char, IArgumentMarshaler> _marshalers;
         private List<char> _argsFound;
         private List<string>.Enumerator _currentArgument;
 
-        public Args(string shema, string[] args)
+        public Args(string schema, string[] args)
         {
+            _schema = schema;
             _marshalers = new Dictionary<char, IArgumentMarshaler>();
             _argsFound = new List<char>();
 
-            ParseSchema(shema);
+            ParseSchema(_schema);
             ParseArgumentStrings(new List<string>(args));
         }
 
@@ -125,6 +127,26 @@ namespace Utilities
         public double GetDouble(char arg)
         {
             return DoubleArgumentMarshaler.GetValue(_marshalers[arg]);
+        }
+
+        public int Cardinality()
+        {
+            return _argsFound.Count;
+        }
+
+        public string Usage()
+        {
+            if (_schema.Length > 0)
+            {
+                return string.Format("-[{0}]", _schema);
+            }
+
+            return string.Empty;
+        }
+
+        public bool Has(char arg)
+        {
+            return _argsFound.Contains(arg);
         }
     }
 }
