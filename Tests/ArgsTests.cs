@@ -23,7 +23,7 @@ namespace Tests
             }
             catch (ArgsException e)
             {
-                Assert.Equal(ErrorCode.Unexpected_Argument, e.ErrorCode);
+                Assert.Equal(ErrorCode.UnexpectedArgument, e.ErrorCode);
                 Assert.Equal('x', e.ErrorArgumentId);
             }
         }
@@ -38,7 +38,7 @@ namespace Tests
             }
             catch (ArgsException e)
             {
-                Assert.Equal(ErrorCode.Unexpected_Argument, e.ErrorCode);
+                Assert.Equal(ErrorCode.UnexpectedArgument, e.ErrorCode);
                 Assert.Equal('x', e.ErrorArgumentId);
             }
         }
@@ -53,7 +53,7 @@ namespace Tests
             }
             catch (ArgsException e)
             {
-                Assert.Equal(ErrorCode.Invalid_Argument_Name, e.ErrorCode);
+                Assert.Equal(ErrorCode.InvalidArgumentName, e.ErrorCode);
                 Assert.Equal('*', e.ErrorArgumentId);
             }
         }
@@ -68,7 +68,7 @@ namespace Tests
             }
             catch (ArgsException e)
             {
-                Assert.Equal(ErrorCode.Invalid_Argument_Format, e.ErrorCode);
+                Assert.Equal(ErrorCode.InvalidArgumentFormat, e.ErrorCode);
                 Assert.Equal('f', e.ErrorArgumentId);
             }
         }
@@ -102,7 +102,7 @@ namespace Tests
             }
             catch (ArgsException e)
             {
-                Assert.Equal(ErrorCode.Missing_String, e.ErrorCode);
+                Assert.Equal(ErrorCode.MissingString, e.ErrorCode);
                 Assert.Equal('x', e.ErrorArgumentId);
             }
         }
@@ -135,7 +135,7 @@ namespace Tests
             }
             catch (ArgsException e)
             {
-                Assert.Equal(ErrorCode.Invalid_Integer, e.ErrorCode);
+                Assert.Equal(ErrorCode.InvalidInteger, e.ErrorCode);
                 Assert.Equal('x', e.ErrorArgumentId);
                 Assert.Equal("Forty two", e.ErrorParameter);
             }
@@ -151,7 +151,7 @@ namespace Tests
             }
             catch (ArgsException e)
             {
-                Assert.Equal(ErrorCode.Missing_Integer, e.ErrorCode);
+                Assert.Equal(ErrorCode.MissingInteger, e.ErrorCode);
                 Assert.Equal('x', e.ErrorArgumentId);
             }
         }
@@ -175,7 +175,7 @@ namespace Tests
             }
             catch (ArgsException e)
             {
-                Assert.Equal(ErrorCode.Invalid_Double, e.ErrorCode);
+                Assert.Equal(ErrorCode.InvalidDouble, e.ErrorCode);
                 Assert.Equal('x', e.ErrorArgumentId);
                 Assert.Equal("Forty two", e.ErrorParameter);
             }
@@ -191,7 +191,7 @@ namespace Tests
             }
             catch (ArgsException e)
             {
-                Assert.Equal(ErrorCode.Missing_Double, e.ErrorCode);
+                Assert.Equal(ErrorCode.MissingDouble, e.ErrorCode);
                 Assert.Equal('x', e.ErrorArgumentId);
             }
         }

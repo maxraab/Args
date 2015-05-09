@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Utilities
 {
@@ -56,15 +57,15 @@ namespace Utilities
             }
             else
             {
-                throw new ArgsException(ErrorCode.Invalid_Argument_Format, elementId, elementTail);
+                throw new ArgsException(ErrorCode.InvalidArgumentFormat, elementTail, elementId);
             }
         }
 
-        private void ValidateSchemaElementId(char elementId)
+        private static void ValidateSchemaElementId(char elementId)
         {
             if (!char.IsLetter(elementId))
             {
-                throw new ArgsException(ErrorCode.Invalid_Argument_Name, elementId, null);
+                throw new ArgsException(ErrorCode.InvalidArgumentName, null, elementId);
             }
         }
 
@@ -74,7 +75,7 @@ namespace Utilities
             {
                 var argsString = _currentArgument.Current;
 
-                if (argsString.StartsWith("-"))
+                if (argsString.StartsWith("-", StringComparison.Ordinal))
                 {
                     ParseArgumentCharacters(argsString.Substring(1));
                 }
@@ -94,14 +95,14 @@ namespace Utilities
             IArgumentMarshaler marshaler;
             if (!_marshalers.TryGetValue(argChar, out marshaler))
             {
-                throw new ArgsException(ErrorCode.Unexpected_Argument, argChar, null);
+                throw new ArgsException(ErrorCode.UnexpectedArgument, null, argChar);
             }
 
             _argsFound.Add(argChar);
 
             try
             {
-                marshaler.Set(_currentArgument);
+                marshaler.SetArgument(_currentArgument);
             }
             catch (ArgsException e)
             {
@@ -159,7 +160,7 @@ namespace Utilities
 
             if (_schema.Length > 0)
             {
-                usage = string.Format("Usage: -[{0}]", _schema);
+                usage = string.Format(CultureInfo.CurrentCulture, "Usage: -[{0}]", _schema);
             }
 
             return usage;

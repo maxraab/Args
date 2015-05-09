@@ -6,7 +6,7 @@
 
         #region IArgumentMarshaler Member
 
-        public void Set(System.Collections.Generic.List<string>.Enumerator currentArgument)
+        public void SetArgument(System.Collections.Generic.List<string>.Enumerator argument)
         {
             _value = true;
         }

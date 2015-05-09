@@ -4,20 +4,20 @@ namespace Utilities
 {
     public class StringArgumentMarshaler : IArgumentMarshaler
     {
-        public string _value;
+        private string _value;
 
         #region IArgumentMarshaler Member
 
-        public void Set(System.Collections.Generic.List<string>.Enumerator currentArgument)
+        public void SetArgument(System.Collections.Generic.List<string>.Enumerator argument)
         {
             try
             {
-                currentArgument.MoveNext();
-                _value = currentArgument.Current;
+                argument.MoveNext();
+                _value = argument.Current;
             }
             catch (InvalidOperationException)
             {
-                throw new ArgsException(ErrorCode.Missing_String);
+                throw new ArgsException(ErrorCode.MissingString, argument.Current);
             }
         }
 

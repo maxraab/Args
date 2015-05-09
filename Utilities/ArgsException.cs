@@ -1,30 +1,43 @@
 ﻿using System;
+using System.Globalization;
+using System.Runtime.Serialization;
 
 namespace Utilities
 {
+    [Serializable]
     public class ArgsException : Exception
     {
-        public ArgsException()
-        {
-        }
-
-        public ArgsException(ErrorCode errorCode)
-        {
-            ErrorCode = errorCode;
-        }
-
         public ArgsException(ErrorCode errorCode, string errorParameters)
         {
             ErrorCode = errorCode;
             ErrorParameter = errorParameters;
         }
 
-
-        public ArgsException(ErrorCode errorCode, char errorArgumentId, string errorParameters)
+        public ArgsException(ErrorCode errorCode, string errorParameters, char errorArgumentId)
         {
             ErrorCode = errorCode;
-            ErrorArgumentId = errorArgumentId;
             ErrorParameter = errorParameters;
+            ErrorArgumentId = errorArgumentId;
+        }
+
+        protected ArgsException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+        }
+
+        public ArgsException(string message, Exception innerException)
+            : base(message, innerException)
+        {
+        }
+
+        public ArgsException(string message)
+            : base(message)
+        {
+        }
+
+        public ArgsException()
+            : base()
+        {
         }
 
         public string ErrorParameter
@@ -50,32 +63,31 @@ namespace Utilities
 
             switch (ErrorCode)
             {
-                case ErrorCode.Ok:
-                    errorMessage = "TILT: Should not get here.";
+                case ErrorCode.UnexpectedArgument:
+                    errorMessage = string.Format(CultureInfo.CurrentCulture, "Argument -{0} unexpected.", ErrorArgumentId);
                     break;
-                case ErrorCode.Unexpected_Argument:
-                    errorMessage = string.Format("Argument -{0} unexpected.", ErrorArgumentId);
+                case ErrorCode.MissingString:
+                    errorMessage = string.Format(CultureInfo.CurrentCulture, "Could not find string parameter for -{0}.", ErrorArgumentId);
                     break;
-                case ErrorCode.Missing_String:
-                    errorMessage = string.Format("Could not find string parameter for -{0}.", ErrorArgumentId);
+                case ErrorCode.InvalidInteger:
+                    errorMessage = string.Format(CultureInfo.CurrentCulture, "Argument -{0} expects an integer but was '{1}'.",
+                        ErrorArgumentId, ErrorParameter);
                     break;
-                case ErrorCode.Invalid_Integer:
-                    errorMessage = string.Format("Argument -{0} expects an integer but was '{1}'.", ErrorArgumentId, ErrorParameter);
+                case ErrorCode.MissingInteger:
+                    errorMessage = string.Format(CultureInfo.CurrentCulture, "Could not find integer parameter for -{0}.", ErrorArgumentId);
                     break;
-                case ErrorCode.Missing_Integer:
-                    errorMessage = string.Format("Could not find integer parameter for -{0}.", ErrorArgumentId);
+                case ErrorCode.InvalidDouble:
+                    errorMessage = string.Format(CultureInfo.CurrentCulture, "Argument -{0} expects a double but was '{1}'.",
+                        ErrorArgumentId, ErrorParameter);
                     break;
-                case ErrorCode.Invalid_Double:
-                    errorMessage = string.Format("Argument -{0} expects a double but was '{1}'.", ErrorArgumentId, ErrorParameter);
+                case ErrorCode.MissingDouble:
+                    errorMessage = string.Format(CultureInfo.CurrentCulture, "Could not find double parameter for -{0}.", ErrorArgumentId);
                     break;
-                case ErrorCode.Missing_Double:
-                    errorMessage = string.Format("Could not find double parameter for -{0}.", ErrorArgumentId);
+                case ErrorCode.InvalidArgumentName:
+                    errorMessage = string.Format(CultureInfo.CurrentCulture, "'{0}' is not a valid argument name.", ErrorArgumentId);
                     break;
-                case ErrorCode.Invalid_Argument_Name:
-                    errorMessage = string.Format("'{0}' is not a valid argument name.", ErrorArgumentId);
-                    break;
-                case ErrorCode.Invalid_Argument_Format:
-                    errorMessage = string.Format("'{0}' is not a valid argument format.", ErrorParameter);
+                case ErrorCode.InvalidArgumentFormat:
+                    errorMessage = string.Format(CultureInfo.CurrentCulture, "'{0}' is not a valid argument format.", ErrorParameter);
                     break;
             }
 

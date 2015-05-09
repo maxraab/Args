@@ -5,7 +5,7 @@ namespace Utilities
 {
     public interface IArgumentMarshaler
     {
-        void Set(List<string>.Enumerator currentArgument);
+        void SetArgument(List<string>.Enumerator argument);
 
         object GetValue();
     }

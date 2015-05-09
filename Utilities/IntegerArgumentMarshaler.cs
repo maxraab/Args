@@ -1,28 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Utilities
 {
     public class IntegerArgumentMarshaler : IArgumentMarshaler
     {
-        public int _value;
+        private int _value;
 
         #region IArgumentMarshaler Member
 
-        public void Set(List<string>.Enumerator currentArgument)
+        public void SetArgument(List<string>.Enumerator argument)
         {
             try
             {
-                currentArgument.MoveNext();
-                _value = int.Parse(currentArgument.Current);
+                argument.MoveNext();
+                _value = int.Parse(argument.Current, CultureInfo.InvariantCulture);
             }
             catch (ArgumentNullException)
             {
-                throw new ArgsException(ErrorCode.Missing_Integer, currentArgument.Current);
+                throw new ArgsException(ErrorCode.MissingInteger, argument.Current);
             }
             catch (FormatException)
             {
-                throw new ArgsException(ErrorCode.Invalid_Integer, currentArgument.Current);
+                throw new ArgsException(ErrorCode.InvalidInteger, argument.Current);
             }
         }
 
