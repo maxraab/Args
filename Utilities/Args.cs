@@ -112,71 +112,37 @@ namespace Utilities
 
         public bool GetBoolean(char arg)
         {
-            IArgumentMarshaler marshaler;
-            bool result = false;
-            if (_marshalers.TryGetValue(arg, out marshaler))
-            {
-                try
-                {
-                    result = marshaler != null && (bool)marshaler.GetValue();
-                }
-                catch (InvalidCastException e)
-                {
-                    result = false;
-                }
-            }
-            return result;
+            return GetValue<bool>(arg);
         }
 
         public string GetString(char arg)
         {
-            IArgumentMarshaler marshaler;
-            string result = string.Empty;
-            if (_marshalers.TryGetValue(arg, out marshaler))
-            {
-                try
-                {
-                    result = marshaler == null ? string.Empty : (string)marshaler.GetValue();
-                }
-                catch (InvalidCastException e)
-                {
-                    result = string.Empty;
-                }
-            }
-            return result;
+            return GetValue<string>(arg);
         }
 
         public int GetInteger(char arg)
         {
-            IArgumentMarshaler marshaler;
-            int result = 0;
-            if (_marshalers.TryGetValue(arg, out marshaler))
-            {
-                try
-                {
-                    result = marshaler == null ? 0 : (int)marshaler.GetValue();
-                }
-                catch (InvalidCastException e)
-                {
-                    result = 0;
-                }
-            }
-            return result;
+            return GetValue<int>(arg);
         }
 
         public double GetDouble(char arg)
         {
+            return GetValue<double>(arg);
+        }
+
+        private T GetValue<T>(char arg)
+        {
             IArgumentMarshaler marshaler;
-            double result = 0.0;
+            T result = default(T);
             if (_marshalers.TryGetValue(arg, out marshaler))
             {
                 try
                 {
-                    result = marshaler == null ? 0.0 : (double)marshaler.GetValue();
+                    result = (T)marshaler.GetValue();
                 }
-                catch (InvalidCastException e)
+                catch (InvalidCastException)
                 {
-                    result = 0.0;
+                    result = default(T);
                 }
             }
             return result;

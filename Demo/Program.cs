@@ -9,12 +9,18 @@ namespace Demo
         {
             try
             {
-                //Args arg = new Args("l,n*,a#", args);
-                Args arg = new Args("l,n*,a#", new string[] { "-u", "Max", "-a", "25", "-l" });
+                Args arg = new Args("l,n*,a#,h", args);
 
-                Console.WriteLine("soll ein Log geschrieben werden?: {0}", arg.GetBoolean('l'));
-                Console.WriteLine("Name: {0}", arg.GetString('n'));
-                Console.WriteLine("Alter: {0}", arg.GetInteger('a'));
+                if (arg.GetBoolean('h'))
+                {
+                    Console.WriteLine(arg.Usage());
+                }
+                else
+                {
+                    Console.WriteLine("soll ein Log geschrieben werden?: {0}", arg.GetBoolean('l'));
+                    Console.WriteLine("Name: {0}", arg.GetString('n'));
+                    Console.WriteLine("Alter: {0}", arg.GetInteger('a'));
+                }
             }
             catch (ArgsException e)
             {
