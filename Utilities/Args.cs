@@ -34,6 +34,15 @@ namespace Utilities
             var elementTail = element.Substring(1);
 
             ValidateSchemaElementId(elementId);
+
+            if (elementTail.Length == 0)
+            {
+                _marshalers.Add(elementId, new BooleanArgumentMarshaler());
+            }
+            else
+            {
+                throw new ArgsException(ErrorCode.Invalid_Argument_Format, elementId, elementTail);
+            }
         }
 
         private void ValidateSchemaElementId(char elementId)

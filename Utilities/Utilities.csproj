@@ -39,7 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Args.cs" />
+    <Compile Include="ArgsException.cs" />
+    <Compile Include="BooleanArgumentMarshaler.cs" />
+    <Compile Include="ErrorCode.cs" />
+    <Compile Include="IArgumentMarshaler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
