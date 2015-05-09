@@ -84,9 +84,8 @@ namespace Utilities
 
         private void ParseArgumentCharacter(char argChar)
         {
-            var marshaler = _marshalers[argChar];
-
-            if (marshaler == null)
+            IArgumentMarshaler marshaler;
+            if (!_marshalers.TryGetValue(argChar, out marshaler))
             {
                 throw new ArgsException(ErrorCode.Unexpected_Argument, argChar, null);
             }
