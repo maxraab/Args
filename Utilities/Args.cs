@@ -6,7 +6,8 @@ namespace Utilities
     {
         private Dictionary<char, IArgumentMarshaler> _marshalers;
         private List<char> _argsFound;
-        private IEnumerable<string> currentArgument;
+        private List<string>.Enumerator _currentArgument;
+        private string _currentArgumentll;
 
         public Args(string shema, string[] args)
         {
@@ -53,9 +54,37 @@ namespace Utilities
             }
         }
 
-        private void ParseArgumentStrings(List<string> list)
+        private void ParseArgumentStrings(List<string> argsList)
         {
-            throw new System.NotImplementedException();
+            //foreach (var currentArgument in argsList)
+            //{
+            //    if (currentArgument.StartsWith("-"))
+            //    {
+            //        _currentArgument = 
+            //        ParseArgumentCharacters(currentArgument.Substring(1));
+            //    }
+            //    else
+            //    {
+            //        _currentArgument.
+            //            break;
+            //    }
+            //}
+
+            //for (_currentArgument = argsList.GetEnumerator(); _currentArgument.MoveNext(); )
+            //{
+            //    var argsString = _currentArgument.Current;
+
+            //    if (argsString.StartsWith("-"))
+            //    {
+            //        ParseArgumentCharacters(argsString.Substring(1));
+            //    }
+            //    else
+            //    {
+            //        _currentArgument.
+            //            break;
+            //    }
+            //}
         }
     }
 }
+;
