@@ -1,10 +1,10 @@
-﻿
-using System;
+﻿using System;
+
 namespace Utilities
 {
     public class StringArgumentMarshaler : IArgumentMarshaler
     {
-        public string _stringValue;
+        public string _value;
 
         #region IArgumentMarshaler Member
 
@@ -13,7 +13,7 @@ namespace Utilities
             try
             {
                 currentArgument.MoveNext();
-                _stringValue = currentArgument.Current;
+                _value = currentArgument.Current;
             }
             catch (InvalidOperationException)
             {
@@ -23,7 +23,7 @@ namespace Utilities
 
         public object GetValue()
         {
-            return _stringValue;
+            return _value;
         }
 
         #endregion

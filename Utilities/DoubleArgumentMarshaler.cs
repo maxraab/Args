@@ -5,7 +5,7 @@ namespace Utilities
 {
     public class DoubleArgumentMarshaler : IArgumentMarshaler
     {
-        public double _doubleValue;
+        public double _value;
 
         #region IArgumentMarshaler Member
 
@@ -14,7 +14,7 @@ namespace Utilities
             try
             {
                 currentArgument.MoveNext();
-                _doubleValue = double.Parse(currentArgument.Current);
+                _value = double.Parse(currentArgument.Current);
             }
             catch (ArgumentNullException)
             {
@@ -28,7 +28,7 @@ namespace Utilities
 
         public object GetValue()
         {
-            return _doubleValue;
+            return _value;
         }
 
         #endregion

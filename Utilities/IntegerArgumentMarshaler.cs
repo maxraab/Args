@@ -5,7 +5,7 @@ namespace Utilities
 {
     public class IntegerArgumentMarshaler : IArgumentMarshaler
     {
-        public int _intValue;
+        public int _value;
 
         #region IArgumentMarshaler Member
 
@@ -14,7 +14,7 @@ namespace Utilities
             try
             {
                 currentArgument.MoveNext();
-                _intValue = int.Parse(currentArgument.Current);
+                _value = int.Parse(currentArgument.Current);
             }
             catch (ArgumentNullException)
             {
@@ -28,7 +28,7 @@ namespace Utilities
 
         public object GetValue()
         {
-            return _intValue;
+            return _value;
         }
 
         #endregion

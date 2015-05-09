@@ -1,20 +1,19 @@
-﻿
-namespace Utilities
+﻿namespace Utilities
 {
     public class BooleanArgumentMarshaler : IArgumentMarshaler
     {
-        private bool _booleanValue;
+        private bool _value;
 
         #region IArgumentMarshaler Member
 
         public void Set(System.Collections.Generic.List<string>.Enumerator currentArgument)
         {
-            _booleanValue = true;
+            _value = true;
         }
 
         public object GetValue()
         {
-            return _booleanValue;
+            return _value;
         }
 
         #endregion
