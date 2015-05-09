@@ -65,7 +65,6 @@ namespace Utilities
         {
             for (_currentArgument = argsList.GetEnumerator(); _currentArgument.MoveNext(); )
             {
-                var previousArgument = _currentArgument;
                 var argsString = _currentArgument.Current;
 
                 if (argsString.StartsWith("-"))
@@ -85,9 +84,9 @@ namespace Utilities
 
         private void ParseArgumentCharacter(char argChar)
         {
-            var m = _marshalers[argChar];
+            var marshaler = _marshalers[argChar];
 
-            if (m == null)
+            if (marshaler == null)
             {
                 throw new ArgsException(ErrorCode.Unexpected_Argument, argChar, null);
             }
@@ -96,23 +95,13 @@ namespace Utilities
 
             try
             {
-                m.Set(_currentArgument);
+                marshaler.Set(_currentArgument);
             }
             catch (ArgsException e)
             {
                 e.ErrorArgumentId = argChar;
                 throw;
             }
-        }
-
-        public bool Has(char arg)
-        {
-            return _argsFound.Contains(arg);
-        }
-
-        public int NextArgument()
-        {
-            return 0;
         }
 
         public bool GetBoolean(char arg)
