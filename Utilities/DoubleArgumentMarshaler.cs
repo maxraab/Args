@@ -5,21 +5,7 @@ namespace Utilities
 {
     public class DoubleArgumentMarshaler : IArgumentMarshaler
     {
-        public double DoubleValue
-        {
-            get;
-            set;
-        }
-
-        public static double GetValue(IArgumentMarshaler am)
-        {
-            if (am != null && am is DoubleArgumentMarshaler)
-            {
-                return ((DoubleArgumentMarshaler)am).DoubleValue;
-            }
-
-            return 0.0;
-        }
+        public double _doubleValue;
 
         #region IArgumentMarshaler Member
 
@@ -28,7 +14,7 @@ namespace Utilities
             try
             {
                 currentArgument.MoveNext();
-                DoubleValue = double.Parse(currentArgument.Current);
+                _doubleValue = double.Parse(currentArgument.Current);
             }
             catch (ArgumentNullException)
             {
@@ -38,6 +24,11 @@ namespace Utilities
             {
                 throw new ArgsException(ErrorCode.Invalid_Double, currentArgument.Current);
             }
+        }
+
+        public object GetValue()
+        {
+            return _doubleValue;
         }
 
         #endregion

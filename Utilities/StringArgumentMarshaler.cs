@@ -4,21 +4,7 @@ namespace Utilities
 {
     public class StringArgumentMarshaler : IArgumentMarshaler
     {
-        public string StringValue
-        {
-            get;
-            set;
-        }
-
-        public static string GetValue(IArgumentMarshaler am)
-        {
-            if (am != null && am is StringArgumentMarshaler)
-            {
-                return ((StringArgumentMarshaler)am).StringValue;
-            }
-
-            return string.Empty;
-        }
+        public string _stringValue;
 
         #region IArgumentMarshaler Member
 
@@ -27,12 +13,17 @@ namespace Utilities
             try
             {
                 currentArgument.MoveNext();
-                StringValue = currentArgument.Current;
+                _stringValue = currentArgument.Current;
             }
             catch (InvalidOperationException)
             {
                 throw new ArgsException(ErrorCode.Missing_String);
             }
+        }
+
+        public object GetValue()
+        {
+            return _stringValue;
         }
 
         #endregion

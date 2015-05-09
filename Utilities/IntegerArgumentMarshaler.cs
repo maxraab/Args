@@ -5,21 +5,7 @@ namespace Utilities
 {
     public class IntegerArgumentMarshaler : IArgumentMarshaler
     {
-        public int IntValue
-        {
-            get;
-            set;
-        }
-
-        public static int GetValue(IArgumentMarshaler am)
-        {
-            if (am != null && am is IntegerArgumentMarshaler)
-            {
-                return ((IntegerArgumentMarshaler)am).IntValue;
-            }
-
-            return 0;
-        }
+        public int _intValue;
 
         #region IArgumentMarshaler Member
 
@@ -28,7 +14,7 @@ namespace Utilities
             try
             {
                 currentArgument.MoveNext();
-                IntValue = int.Parse(currentArgument.Current);
+                _intValue = int.Parse(currentArgument.Current);
             }
             catch (ArgumentNullException)
             {
@@ -38,6 +24,11 @@ namespace Utilities
             {
                 throw new ArgsException(ErrorCode.Invalid_Integer, currentArgument.Current);
             }
+        }
+
+        public object GetValue()
+        {
+            return _intValue;
         }
 
         #endregion

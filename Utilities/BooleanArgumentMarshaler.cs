@@ -3,27 +3,18 @@ namespace Utilities
 {
     public class BooleanArgumentMarshaler : IArgumentMarshaler
     {
-        public bool BooleanValue
-        {
-            get;
-            set;
-        }
-
-        public static bool GetValue(IArgumentMarshaler am)
-        {
-            if (am != null && am is BooleanArgumentMarshaler)
-            {
-                return ((BooleanArgumentMarshaler)am).BooleanValue;
-            }
-
-            return false;
-        }
+        private bool _booleanValue;
 
         #region IArgumentMarshaler Member
 
         public void Set(System.Collections.Generic.List<string>.Enumerator currentArgument)
         {
-            BooleanValue = true;
+            _booleanValue = true;
+        }
+
+        public object GetValue()
+        {
+            return _booleanValue;
         }
 
         #endregion

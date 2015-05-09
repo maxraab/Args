@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 namespace Utilities
 {
@@ -111,22 +112,74 @@ namespace Utilities
 
         public bool GetBoolean(char arg)
         {
-            return BooleanArgumentMarshaler.GetValue(_marshalers[arg]);
+            IArgumentMarshaler marshaler;
+            bool result = false;
+            if (_marshalers.TryGetValue(arg, out marshaler))
+            {
+                try
+                {
+                    result = marshaler != null && (bool)marshaler.GetValue();
+                }
+                catch (InvalidCastException e)
+                {
+                    result = false;
+                }
+            }
+            return result;
         }
 
         public string GetString(char arg)
         {
-            return StringArgumentMarshaler.GetValue(_marshalers[arg]);
+            IArgumentMarshaler marshaler;
+            string result = string.Empty;
+            if (_marshalers.TryGetValue(arg, out marshaler))
+            {
+                try
+                {
+                    result = marshaler == null ? string.Empty : (string)marshaler.GetValue();
+                }
+                catch (InvalidCastException e)
+                {
+                    result = string.Empty;
+                }
+            }
+            return result;
         }
 
         public int GetInteger(char arg)
         {
-            return IntegerArgumentMarshaler.GetValue(_marshalers[arg]);
+            IArgumentMarshaler marshaler;
+            int result = 0;
+            if (_marshalers.TryGetValue(arg, out marshaler))
+            {
+                try
+                {
+                    result = marshaler == null ? 0 : (int)marshaler.GetValue();
+                }
+                catch (InvalidCastException e)
+                {
+                    result = 0;
+                }
+            }
+            return result;
         }
 
         public double GetDouble(char arg)
         {
-            return DoubleArgumentMarshaler.GetValue(_marshalers[arg]);
+            IArgumentMarshaler marshaler;
+            double result = 0.0;
+            if (_marshalers.TryGetValue(arg, out marshaler))
+            {
+                try
+                {
+                    result = marshaler == null ? 0.0 : (double)marshaler.GetValue();
+                }
+                catch (InvalidCastException e)
+                {
+                    result = 0.0;
+                }
+            }
+            return result;
         }
 
         public int Cardinality()
