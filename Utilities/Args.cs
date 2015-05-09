@@ -72,11 +72,6 @@ namespace Utilities
                 {
                     ParseArgumentCharacters(argsString.Substring(1));
                 }
-                //else
-                //{
-                //    _currentArgument = previousArgument;
-                //    break;
-                //}
             }
         }
 
