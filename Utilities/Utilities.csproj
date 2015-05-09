@@ -44,6 +44,7 @@
     <Compile Include="BooleanArgumentMarshaler.cs" />
     <Compile Include="ErrorCode.cs" />
     <Compile Include="IArgumentMarshaler.cs" />
+    <Compile Include="IntegerArgumentMarshaler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringArgumentMarshaler.cs" />
   </ItemGroup>

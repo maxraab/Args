@@ -43,6 +43,10 @@ namespace Utilities
             {
                 _marshalers.Add(elementId, new StringArgumentMarshaler());
             }
+            else if (elementTail.Equals("#"))
+            {
+                _marshalers.Add(elementId, new IntegerArgumentMarshaler());
+            }
             else
             {
                 throw new ArgsException(ErrorCode.Invalid_Argument_Format, elementId, elementTail);
@@ -68,11 +72,11 @@ namespace Utilities
                 {
                     ParseArgumentCharacters(argsString.Substring(1));
                 }
-                else
-                {
-                    _currentArgument = previousArgument;
-                    break;
-                }
+                //else
+                //{
+                //    _currentArgument = previousArgument;
+                //    break;
+                //}
             }
         }
 
@@ -124,6 +128,11 @@ namespace Utilities
         public string GetString(char arg)
         {
             return StringArgumentMarshaler.GetValue(_marshalers[arg]);
+        }
+
+        public int GetInteger(char arg)
+        {
+            return IntegerArgumentMarshaler.GetValue(_marshalers[arg]);
         }
     }
 }
