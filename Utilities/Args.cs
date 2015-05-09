@@ -7,7 +7,6 @@ namespace Utilities
         private Dictionary<char, IArgumentMarshaler> _marshalers;
         private List<char> _argsFound;
         private List<string>.Enumerator _currentArgument;
-        private string _currentArgumentll;
 
         public Args(string shema, string[] args)
         {
@@ -84,6 +83,36 @@ namespace Utilities
             //            break;
             //    }
             //}
+        }
+
+        private void ParseArgumentCharacters(string argChars)
+        {
+            for (var i = 0; i < argChars.Length; i++)
+            {
+                ParseArgumentCharacter(argChars[i]);
+            }
+        }
+
+        private void ParseArgumentCharacter(char argChar)
+        {
+            var m = _marshalers[argChar];
+
+            if (m == null)
+            {
+                throw new ArgsException(ErrorCode.Unexpected_Argument, argChar, null);
+            }
+
+            _argsFound.Add(argChar);
+
+            try
+            {
+                m.Set(_currentArgument);
+            }
+            catch (ArgsException e)
+            {
+                e.ErrorArgumentId = argChar;
+                throw;
+            }
         }
     }
 }

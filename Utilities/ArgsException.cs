@@ -7,5 +7,11 @@ namespace Utilities
         public ArgsException(ErrorCode errorCode, char errorArgumentId, string errorParameters)
         {
         }
+
+        public char ErrorArgumentId
+        {
+            get;
+            set;
+        }
     }
 }
