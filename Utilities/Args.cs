@@ -55,34 +55,21 @@ namespace Utilities
 
         private void ParseArgumentStrings(List<string> argsList)
         {
-            //foreach (var currentArgument in argsList)
-            //{
-            //    if (currentArgument.StartsWith("-"))
-            //    {
-            //        _currentArgument = 
-            //        ParseArgumentCharacters(currentArgument.Substring(1));
-            //    }
-            //    else
-            //    {
-            //        _currentArgument.
-            //            break;
-            //    }
-            //}
+            for (_currentArgument = argsList.GetEnumerator(); _currentArgument.MoveNext(); )
+            {
+                var previousArgument = _currentArgument;
+                var argsString = _currentArgument.Current;
 
-            //for (_currentArgument = argsList.GetEnumerator(); _currentArgument.MoveNext(); )
-            //{
-            //    var argsString = _currentArgument.Current;
-
-            //    if (argsString.StartsWith("-"))
-            //    {
-            //        ParseArgumentCharacters(argsString.Substring(1));
-            //    }
-            //    else
-            //    {
-            //        _currentArgument.
-            //            break;
-            //    }
-            //}
+                if (argsString.StartsWith("-"))
+                {
+                    ParseArgumentCharacters(argsString.Substring(1));
+                }
+                else
+                {
+                    _currentArgument = previousArgument;
+                    break;
+                }
+            }
         }
 
         private void ParseArgumentCharacters(string argChars)

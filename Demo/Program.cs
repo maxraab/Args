@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Utilities;
 
 namespace Demo
 {
@@ -10,6 +7,20 @@ namespace Demo
     {
         static void Main(string[] args)
         {
+            try
+            {
+                //Args arg = new Args("l", args);
+                Args arg = new Args("l", new string[] { "-l", "true" });
+                bool logging = arg.GetBoolean('l');
+
+                Console.WriteLine("soll geloggt werden?: {0}", logging);
+            }
+            catch (ArgsException e)
+            {
+                Console.WriteLine("Argument error: {0}", e.Message);
+            }
+
+            Console.ReadLine();
         }
     }
 }

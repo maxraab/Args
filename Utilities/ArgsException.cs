@@ -2,8 +2,12 @@
 
 namespace Utilities
 {
-    class ArgsException : Exception
+    public class ArgsException : Exception
     {
+        public ArgsException()
+        {
+        }
+
         public ArgsException(ErrorCode errorCode, char errorArgumentId, string errorParameters)
         {
         }

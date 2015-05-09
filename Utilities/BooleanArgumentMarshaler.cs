@@ -18,5 +18,14 @@ namespace Utilities
 
             return false;
         }
+
+        #region IArgumentMarshaler Member
+
+        public void Set(System.Collections.Generic.List<string>.Enumerator currentArgument)
+        {
+            BooleanValue = true;
+        }
+
+        #endregion
     }
 }
