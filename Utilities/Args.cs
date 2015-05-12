@@ -23,12 +23,9 @@ namespace Utilities
 
         private void ParseSchema(string schema)
         {
-            foreach (var element in schema.Split(','))
+            foreach (var element in schema.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
             {
-                if (element.Length > 0)
-                {
-                    ParseSchemaElement(element.Trim());
-                }
+                ParseSchemaElement(element.Trim());
             }
         }
 
