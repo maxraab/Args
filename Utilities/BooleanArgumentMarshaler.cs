@@ -1,4 +1,6 @@
-﻿namespace Utilities
+﻿using System.Collections.Generic;
+
+namespace Utilities
 {
     public class BooleanArgumentMarshaler : IArgumentMarshaler
     {
@@ -6,7 +8,7 @@
 
         #region IArgumentMarshaler Member
 
-        public void SetArgument(System.Collections.Generic.List<string>.Enumerator argument)
+        public void SetArgument(IEnumerator<string> argument)
         {
             _value = true;
         }
