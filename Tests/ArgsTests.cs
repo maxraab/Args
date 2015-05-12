@@ -159,7 +159,7 @@ namespace Tests
         [Fact]
         public void SimpleDoublePresent()
         {
-            var args = new Args("x##", new string[] { "-x", "42,3" });
+            var args = new Args("x##", new string[] { "-x", "42.3" });
             Assert.Equal(1, args.Cardinality());
             Assert.True(args.Has('x'));
             Assert.Equal(42.3, args.GetDouble('x'));
