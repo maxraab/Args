@@ -1,11 +1,10 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Utilities
 {
     public interface IArgumentMarshaler
     {
-        void SetArgument(List<string>.Enumerator argument);
+        void SetArgument(IEnumerator<string> argument);
 
         object GetValue();
     }

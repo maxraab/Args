@@ -10,7 +10,7 @@ namespace Utilities
 
         #region IArgumentMarshaler Member
 
-        public void SetArgument(List<string>.Enumerator argument)
+        public void SetArgument(IEnumerator<string> argument)
         {
             try
             {
