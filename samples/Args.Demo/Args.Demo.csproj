@@ -48,9 +48,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Utilities\Utilities.csproj">
+    <ProjectReference Include="..\..\src\Args\Args.csproj">
       <Project>{50a032fc-3453-4cae-aa1d-758d8165dc27}</Project>
-      <Name>Utilities</Name>
+      <Name>Args</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
