@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Utilities
+namespace Arguments
 {
     public class StringArgumentMarshaler : IArgumentMarshaler
     {

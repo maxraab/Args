@@ -1,7 +1,6 @@
 ﻿using System;
-using Utilities;
 
-namespace Demo
+namespace Arguments.Demo
 {
     class Program
     {

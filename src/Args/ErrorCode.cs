@@ -1,4 +1,4 @@
-﻿namespace Utilities
+﻿namespace Arguments
 {
     public enum ErrorCode
     {
