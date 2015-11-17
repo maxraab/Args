@@ -62,8 +62,8 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="ArgsExceptionTests.cs" />
-    <Compile Include="ArgsTests.cs" />
+    <Compile Include="ArgsExceptionFacts.cs" />
+    <Compile Include="ArgsFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
