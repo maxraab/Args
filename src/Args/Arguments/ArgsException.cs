@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Runtime.Serialization;
 
-namespace Utilities
+namespace Arguments
 {
     [Serializable]
     public class ArgsException : Exception

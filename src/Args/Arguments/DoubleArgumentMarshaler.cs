@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace Utilities
+namespace Arguments
 {
     public class DoubleArgumentMarshaler : IArgumentMarshaler
     {

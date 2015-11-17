@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace Utilities
+namespace Arguments
 {
     public class Args
     {
@@ -68,7 +68,7 @@ namespace Utilities
 
         private void ParseArgumentStrings(List<string> argsList)
         {
-            for (_currentArgument = argsList.GetEnumerator(); _currentArgument.MoveNext(); )
+            for (_currentArgument = argsList.GetEnumerator(); _currentArgument.MoveNext();)
             {
                 var argsString = _currentArgument.Current;
 

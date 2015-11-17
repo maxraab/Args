@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Utilities
+namespace Arguments
 {
     public interface IArgumentMarshaler
     {

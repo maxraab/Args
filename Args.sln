@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Utilities.csproj", "{50A032FC-3453-4CAE-AA1D-758D8165DC27}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Args", "src\Args\Args.csproj", "{50A032FC-3453-4CAE-AA1D-758D8165DC27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Demo\Demo.csproj", "{0D51193C-6D69-4CD2-B893-260CAD8293C5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Args.Demo", "samples\Args.Demo\Args.Demo.csproj", "{0D51193C-6D69-4CD2-B893-260CAD8293C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{7C0DB677-5F9B-4DC3-B5A8-77606926C061}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Args.Tests", "tests\Args.Tests\Args.Tests.csproj", "{7C0DB677-5F9B-4DC3-B5A8-77606926C061}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
