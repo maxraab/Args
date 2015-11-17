@@ -1,0 +1,117 @@
+<Project DefaultTargets="BuildAndTest" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+
+  <!-- Settings -->
+  <PropertyGroup>
+    <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+    <RootDir Condition="'$(RootDir)' == ''">$(MSBuildProjectDirectory)\..\</RootDir>
+    <SolutionsDir Condition="'$(SolutionsDir)' == ''">$(RootDir)</SolutionsDir>
+    <SourceDir Condition="'$(SourceDir)' == ''">$(RootDir)\src</SourceDir>
+    <TestsDir Condition="'$(TestsDir)' == ''">$(RootDir)\tests</TestsDir>
+    <TestResultsDir Condition="'$(TestResultsDir)' == ''">$(TestsDir)\TestResults</TestResultsDir>
+    <ToolsDir Condition="'$(ToolsDir)' == ''">$(RootDir)\build</ToolsDir>
+    <NuGetExePath Condition="'$(NuGetExePath)' == ''">$(ToolsDir)\nuget.exe</NuGetExePath>
+    <xUnitRunnerConsoleExePath Condition="'$(xUnitRunnerConsoleExePath)' == ''">$(ToolsDir)\xunit.runner.console.2.1.0\tools\xunit.console.exe</xUnitRunnerConsoleExePath>
+    <OpenCoverConsoleExePath Condition="'$(OpenCoverConsoleExePath)' == ''">$(ToolsDir)\OpenCover.4.6.166\tools\OpenCover.Console.exe</OpenCoverConsoleExePath>
+    <ReportGeneratorExePath Condition="'$(ReportGeneratorExePath)' == ''">$(ToolsDir)\ReportGenerator.2.3.4.0\tools\ReportGenerator.exe</ReportGeneratorExePath>
+    <DependencyConfigurationPath>$(ToolsDir)\packages.config</DependencyConfigurationPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <SolutionNames Include="$(SolutionsDir)\*.sln" />
+  </ItemGroup>
+
+  <!-- Targets -->
+  <Target Name="BuildAndTest" DependsOnTargets="Build;Test" />
+
+  <Target Name="PackageRestore" DependsOnTargets="DownloadNuGet">
+    <Message Text="Restoring NuGet packages..." Importance="High" />
+    <Exec Command='"$(NuGetExePath)" restore "%(SolutionNames.Identity)" -NonInteractive' />
+  </Target>
+
+  <Target Name="InstallDependencies" DependsOnTargets="DownloadNuGet" Condition="Exists('$(DependencyConfigurationPath)')">
+    <Message Text="Installing dependencies..." Importance="High" />
+    <Exec Command='"$(NuGetExePath)" install "$(DependencyConfigurationPath)" -OutputDirectory "$(ToolsDir)"' />
+  </Target>
+
+  <Target Name="Build" DependsOnTargets="PackageRestore;InstallDependencies">
+    <Message Text="Building solution..." Importance="High" />
+    <MSBuild Projects="@(SolutionNames)" Targets="Rebuild" Properties="Configuration=$(Configuration)" />
+  </Target>
+
+  <Target Name="Test">
+    <Message Text="Testing solution..." Importance="High" />
+    <ItemGroup>
+      <TestAssemblies Include="$(TestsDir)\**\bin\$(Configuration)\*.Tests.dll" />
+    </ItemGroup>
+    <PropertyGroup>
+      <xUnitRunnerArguments>@(TestAssemblies->'"%(FullPath)"', ' ') -noshadow -xml "$(TestResultsDir)\$(PROCESSOR_ARCHITECTURE).xml" -html "$(TestResultsDir)\$(PROCESSOR_ARCHITECTURE).html"</xUnitRunnerArguments>
+      <OpenCoverFilter>+[Args*]* -[*Tests*]* -[*Facts*]</OpenCoverFilter>
+      <OpenCoverOutputPath>$(TestResultsDir)\coverage.xml</OpenCoverOutputPath>
+      <OpenCoverArguments>-register:user -filter:"$(OpenCoverFilter)" -output:"$(OpenCoverOutputPath)" -returntargetcode -excludebyattribute:*.ExcludeFromCodeCoverage*;*.GeneratedCode*;*.CompilerGenerated*</OpenCoverArguments>
+    </PropertyGroup>
+    <MakeDir Directories="$(TestResultsDir)" />
+    <Exec Command='"$(OpenCoverConsoleExePath)" -target:"$(xUnitRunnerConsoleExePath)" -targetargs:"$(xUnitRunnerArguments)" $(OpenCoverArguments)' />
+    <Exec Command='"$(ReportGeneratorExePath)" -reports:"$(OpenCoverOutputPath)" -targetdir:"$(TestResultsDir)" -reporttypes:"TextSummary;Html" -historydir:"$(TestResultsDir)"' />
+    <Exec Command='type "$(TestResultsDir)\Summary.txt"' />
+  </Target>
+
+  <Target Name="DownloadNuGet" Condition="!Exists('$(NuGetExePath)')">
+    <Message Text="Downloading NuGet.exe..." Importance="High" />
+    <MakeDir Directories="$(ToolsPath)" />
+    <DownloadFile FileName="$(NuGetExePath)" Address="https://www.nuget.org/nuget.exe" />
+  </Target>
+
+  <!-- Tasks -->
+  <UsingTask TaskName="DownloadFile" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v12.0.dll">
+    <ParameterGroup>
+      <Address ParameterType="System.String" Required="true" />
+      <FileName ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Reference Include="System" />
+      <Reference Include="System.IO" />
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
+            var directory = System.IO.Path.GetDirectoryName(FileName);
+            Directory.CreateDirectory(directory);
+            var tempFile = Path.Combine(directory, Path.GetRandomFileName());
+            var client = new System.Net.WebClient();
+            client.Proxy = System.Net.WebRequest.DefaultWebProxy;
+            if (client.Proxy != null) client.Proxy.Credentials = System.Net.CredentialCache.DefaultCredentials;
+            var tryCount = 1;
+            var maxTries = 3;
+            while (tryCount <= maxTries)
+            {
+                try
+                {
+                    Log.LogMessage("Attempting to download {0}...", Address);
+                    client.DownloadFile(Address, tempFile);
+                    break;
+                }
+                catch (System.Net.WebException e)
+                {
+                    tryCount++;
+                    if (tryCount > maxTries)
+                    {
+                        throw;
+                    }
+                    else
+                    {
+                        Log.LogMessage(MessageImportance.High, "Download failed, retrying: {0}", e.Message);
+                    }
+                }
+            }
+            try
+            {
+                if (!File.Exists(FileName))
+                    File.Move(tempFile, FileName);
+            }
+            finally
+            {
+                if (File.Exists(tempFile))
+                    File.Delete(tempFile);
+            }
+        ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+</Project>

@@ -17,10 +17,14 @@
 [Rr]eleases/
 x64/
 x86/
-build/
+build/*
+!build/*.msbuild
+!build/packages.config
 bld/
 [Bb]in/
 [Oo]bj/
+[Pp]lugins/
+libraries/
 
 # Visual Studo 2015 cache/options directory
 .vs/
@@ -94,7 +98,7 @@ _ReSharper*/
 *.[Rr]e[Ss]harper
 *.DotSettings.user
 
-# JustCode is a .NET coding addin-in
+# JustCode is a .NET coding add-in
 .JustCode
 
 # TeamCity is a build add-in
@@ -171,6 +175,7 @@ ClientBin/
 *.publishsettings
 node_modules/
 bower_components/
+orleans.codegen.cs
 
 # RIA/Silverlight projects
 Generated_Code/
@@ -203,3 +208,26 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+
+# DevExpress Files
+*.bak
+
+### Windows ###
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
